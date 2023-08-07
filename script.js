@@ -1,21 +1,24 @@
 //SELECTING ELEMENTS
 const input = document.querySelector("input");
-const weatherIcon = document.querySelector(".weather-icon");
+const weatherIcon = document.querySelector(".weathericon");
+const weatherInfo = document.querySelector(".weather-info");
 const temperature = document.querySelector(".temp");
 const cityName = document.querySelector(".city");
-const humidity = document.querySelector(".humidity");
-const wind = document.querySelector(".wind");
+const humidity = document.querySelector(".humidity-value");
+const speed = document.querySelector(".speed-value");
 
 //EVENTS
 const search = document
   .querySelector("button")
   .addEventListener("click", searchWeather);
+
 input.addEventListener("keydown", (e) => {
-  if (e.key == "Enter") {
+  if (e.key === "Enter") {
     searchWeather();
   }
 });
 
+//Getting weather data
 async function searchWeather() {
   const API_KEY = "8f0f1482a20576b9f526e1cbe3f592c3";
 
@@ -29,10 +32,10 @@ async function searchWeather() {
 }
 
 function displayWeather(data) {
-  temperature.innerHTML = `${Math.round(data.main.temp)}°C`;
+  temperature.innerHTML = `${Math.round(data.main.temp)}°c`;
   cityName.innerHTML = data.name;
   humidity.innerHTML = data.main.humidity + "%";
-  wind.innerHTML = data.wind.speed + " km/h";
-  console.log(data.weather[0].main);
+  speed.innerHTML = data.wind.speed + " km/h";
   weatherIcon.src = `./images/${data.weather[0].main}.png`;
+  weatherInfo.innerHTML = data.weather[0].description + "!";
 }
